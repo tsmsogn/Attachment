@@ -188,7 +188,7 @@ Access AttachmentsController#admin_add() with query string containing upload set
 Set validate settings in your app/Config/bootstrap.php file:
 
 ```php
-<?
+<?php
 Configure::write('Attachment.validaSettings.1', array(
 	'uploadError' => array(
 		'rule' => array('uploadError'),

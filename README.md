@@ -86,7 +86,7 @@ class AppController extends Controller {
 }
 ```
 
-In relation model(example):
+In relation model example:
 
 ```php
 <?php
@@ -123,7 +123,7 @@ class Foo extends AppModel {
 }
 ```
 
-In relation model's view(example):
+In relation model's view example:
 
 ```php
 echo $this->Attachment->js();
@@ -157,6 +157,55 @@ for ($i = 0; $i < 3; $i++) {
 	echo $this->Attachment->input('Pdf', 'Pdf', $name);
 }
 ?>
+```
+
+### Custom
+
+#### Upload setting
+
+Set upload settings in your app/Config/bootstrap.php file:
+
+```php
+<?php
+Configure::write('Attachment.uploadSettings.1', array(
+	'thumbnailSizes' => array(
+		'xvga' => '1024x768',
+		'vga' => '640x480',
+		'thumb' => '80x80',
+	)
+));
+?>
+```
+
+Access AttachmentsController#admin_add() with query string containing upload setting key
+
+```
+/admin/attachment/attachments/add?uploadSetting=1
+```
+
+#### Validate setting
+
+Set validate settings in your app/Config/bootstrap.php file:
+
+```php
+<?
+Configure::write('Attachment.validaSettings.1', array(
+	'uploadError' => array(
+		'rule' => array('uploadError'),
+		//'message' => 'Your custom message here',
+		//'allowEmpty' => false,
+		//'required' => false,
+		//'last' => false, // Stop validation after this rule
+		//'on' => 'create', // Limit validation to 'create' or 'update' operations
+	),
+));
+?>
+```
+
+Access AttachmentsController#admin_add() with query string containing validate setting key
+
+```
+/admin/attachment/attachments/add?validateSetting=1
 ```
 
 ## Lisence

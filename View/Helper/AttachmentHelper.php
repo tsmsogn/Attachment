@@ -104,7 +104,7 @@ class AttachmentHelper extends AppHelper {
 		if (!empty($attachment)) {
 			$output .= $this->generateDetachTag($key, $type, array('Attachment' => $attachment));
 		} else {
-			$output .= $this->generateAttachTag($key, $type, $attachment);
+			$output .= $this->generateAttachTag($key, $type, array('Attachment' => $attachment));
 		}
 
 		$tag = (is_string($options['wrap'])) ? $options['wrap'] : 'div';

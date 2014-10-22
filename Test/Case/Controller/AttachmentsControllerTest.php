@@ -96,6 +96,33 @@ class AttachmentsControllerTest extends ControllerTestCase {
 	}
 
 /**
+ * testAdminEditWithInvalidId method
+ */
+	public function testAdminEditWithInvalidId() {
+		$this->setExpectedException('NotFoundException');
+		$result = $this->_testAction('/admin/attachment/attachments/edit/0');
+		debug($result);
+	}
+
+
+/**
+ * testAdminEditUno method
+ */
+	public function testAdminEditUno() {
+		$data = array(
+			'Attachment' => array(
+				'id' => 1,
+				'title' => 'title',
+				'attachment' => 'attachment',
+				'settings' => 'settings'
+			)
+		);
+		$result = $this->_testAction('/admin/attachment/attachments/edit/1?foo=1', array('data' => $data));
+		$this->assertContains('/admin/attachment?foo=1', $this->headers['Location']);
+		debug($result);
+	}
+
+/**
  * testAdminEdit method
  *
  * @return void

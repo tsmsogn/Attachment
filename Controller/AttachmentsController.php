@@ -66,6 +66,16 @@ class AttachmentsController extends AttachmentAppController {
  * @return void
  */
 	public function admin_add() {
+		$uploadSettingKey = (isset($this->request->query['uploadSetting'])) ? $this->request->query['uploadSetting'] : '';
+		$validateSettingKey = (isset($this->request->query['validateSetting'])) ? $this->request->query['validateSetting'] : '';
+
+		if ($uploadSettingKey !== '') {
+			$this->Attachment->actsAs['Upload.Upload']['attachment'] = Configure::read("Attachment.uploadSettings.$uploadSettingKey");
+		}
+		if ($validateSettingKey !== '') {
+			$this->Attachment->validate['Upload.Upload']['attachment'] = Configure::read("Attachment.validaSettings.$validateSettingKey");
+		}
+
 		if ($this->request->is('post')) {
 			$this->Attachment->create();
 			if ($this->Attachment->save($this->request->data)) {

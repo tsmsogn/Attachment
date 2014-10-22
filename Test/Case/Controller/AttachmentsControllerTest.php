@@ -78,11 +78,21 @@ class AttachmentsControllerTest extends ControllerTestCase {
 	}
 
 /**
- * testAdminAdd method
+ * testAdminAddUno method
  *
  * @return void
  */
-	public function testAdminAdd() {
+	public function testAdminAddUno() {
+		$data = array(
+			'Attachment' => array(
+				'title' => 'title',
+				'attachment' => 'attachment',
+				'settings' => 'settings'
+			)
+		);
+		$result = $this->_testAction('/admin/attachment/attachments/add?foo=1', array('data' => $data));
+		$this->assertContains('/admin/attachment?foo=1', $this->headers['Location']);
+		debug($result);
 	}
 
 /**

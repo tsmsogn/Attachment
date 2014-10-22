@@ -65,6 +65,6 @@ echo $this->Html->script('/Attachment/js/attachment');
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Attachment'), array('action' => 'add', '?' => Set::merge($this->request->query, array('browse' => true)))); ?></li>
+		<li><?php echo $this->Html->link(__('New Attachment'), array('action' => 'add', '?' => $this->request->query)); ?></li>
 	</ul>
 </div>

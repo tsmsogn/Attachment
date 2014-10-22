@@ -10,11 +10,6 @@ class Attachment extends AttachmentAppModel {
 	public $actsAs = array(
 		'Upload.Upload' => array(
 			'attachment' => array(
-				'thumbnailSizes' => array(
-					'xvga' => '1024x768',
-					'vga' => '640x480',
-					'thumb' => '80x80',
-				),
 			),
 		),
 	);
@@ -33,14 +28,6 @@ class Attachment extends AttachmentAppModel {
  */
 	public $validate = array(
 		'attachment' => array(
-			'uploadError' => array(
-				'rule' => array('uploadError'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 		),
 	);
 

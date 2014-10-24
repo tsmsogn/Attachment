@@ -11,6 +11,11 @@ App::uses('AppHelper', 'Helper');
 class AttachmentHelper extends AppHelper {
 
 /**
+ * @var string
+ */
+	private $keyDelimiter = '.';
+
+/**
  * @var array
  */
 	private $__defaults = array(
@@ -70,7 +75,7 @@ class AttachmentHelper extends AppHelper {
  * @return string
  */
 	public function buildKey() {
-		return implode('.', func_get_args());
+		return implode($this->keyDelimiter, func_get_args());
 	}
 
 /**
@@ -78,7 +83,7 @@ class AttachmentHelper extends AppHelper {
  * @return array
  */
 	public function parseKey($key = '') {
-		if (strpos($key, '.') === false) {
+		if (strpos($key, $this->keyDelimiter) === false) {
 			return array();
 		}
 		return explode('.', $key);

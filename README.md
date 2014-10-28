@@ -149,12 +149,20 @@ Add input tag with AttachmentHelper#input();.
 <?php
 for ($i = 0; $i < 3; $i++) {
 	$name = $i + 1;
-	echo $this->Attachment->input('Video', 'Video', $name);
+	echo $this->Attachment->input(array
+		'relation' => 'Video',
+		'model' => 'Video',
+		'name' => $name
+	);
 }
 
 for ($i = 0; $i < 3; $i++) {
 	$name = $i + 1;
-	echo $this->Attachment->input('Pdf', 'Pdf', $name);
+	echo $this->Attachment->input(array
+		'relation' => 'Pdf',
+		'model' => 'Pdf',
+		'name' => $name
+	);
 }
 ?>
 ```

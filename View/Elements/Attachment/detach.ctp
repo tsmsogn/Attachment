@@ -16,4 +16,12 @@ echo $this->Html->link(__('Browse'), '#', array(
 echo $this->Html->link(__('Detach'), '#', array(
 	'onclick' => "Attachment.detach('" . $attachment['Attachment']['id'] . "', '" . $key . "'); return false;"
 ));
+
+if (!empty($attachment['Attachment'])) {
+	foreach ($attachment['Attachment'] as $field => $value) {
+		if (!is_array($value)) {
+			echo $this->Form->hidden("$relation.$i.Attachment.$field", array('value' => $value));
+		}
+	}
+}
 ?>

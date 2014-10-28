@@ -90,35 +90,57 @@ class AttachmentHelper extends AppHelper {
 	}
 
 /**
- * @param $relation
- * @param $model
- * @param $name
+ * @param array $attach
  * @param array $attachment
  * @param string $type
  * @param array $options
  * @return string
  */
-	public function input($relation, $model, $name, $attachment = array(), $type = '' , $options = array()) {
+	public function input($attach = array(), $type = '' , $options = array()) {
 		$defaults = array('wrap' => 'div');
 		$options += $defaults;
 		$output = '';
 
-		$i = String::uuid();
-		$key = $this->buildKey($relation, $i, $model, $name);
+		extract($attach);
 
-		if (!empty($attachment)) {
-			$output .= $this->generateDetachTag($key, $type, array('Attachment' => $attachment));
+		$key = $this->buildKey($relation, $name, $model, $name);
+
+		$data = $this->request->data;
+
+		$isPost = false;
+		if (!empty($data)) {
+			foreach ($data[$relation] as $value) {
+				if (isset($value['Attachment'])) {
+					$isPost = true;
+					break;
+				}
+			}
+		}
+
+		if ($isPost && isset($data[$relation][$name]['Attached']['attachment_id'])) { // For Post
+			$output .= $this->generateDetachTag($key, $type, array('Attachment' => $data[$relation][$name]['Attachment']));
+		} else if (!$isPost && ($index = array_search($name, Set::extract("/$relation/Attached/name", $data))) !== false && isset($data[$relation][$index]['Attached']['attachment_id'])) { // For Edit
+			$output .= $this->generateDetachTag($key, $type, array('Attachment' => $data[$relation][$index]));
 		} else {
-			$output .= $this->generateAttachTag($key, $type, array('Attachment' => $attachment));
+			$output .= $this->generateAttachTag($key, $type);
 		}
 
 		$tag = (is_string($options['wrap'])) ? $options['wrap'] : 'div';
 		$output = $this->Html->tag($tag, $output, array('id' => $key));
 
-		$output .= $this->Form->hidden("$relation.$i.Attached.model", array('value' => $model));
-		$output .= $this->Form->hidden("$relation.$i.Attached.name", array('value' => $name));
+		$output .= $this->Form->hidden("$relation.$name.Attached.model", array('value' => $model));
+		$output .= $this->Form->hidden("$relation.$name.Attached.name", array('value' => $name));
 
-		$this->Form->unlockField("$relation.$i.Attached.attachment_id");
+		$this->Form->unlockField("$relation.$name.Attached.attachment_id");
+		$this->Form->unlockField("$relation.$name.Attachment.id");
+		$this->Form->unlockField("$relation.$name.Attachment.attachment");
+		$this->Form->unlockField("$relation.$name.Attachment.dir");
+		$this->Form->unlockField("$relation.$name.Attachment.type");
+		$this->Form->unlockField("$relation.$name.Attachment.size");
+		$this->Form->unlockField("$relation.$name.Attachment.active");
+		$this->Form->unlockField("$relation.$name.Attachment.settings");
+		$this->Form->unlockField("$relation.$name.Attachment.created");
+		$this->Form->unlockField("$relation.$name.Attachment.updated");
 
 		return $output;
 	}
@@ -126,10 +148,9 @@ class AttachmentHelper extends AppHelper {
 /**
  * @param $key
  * @param $type
- * @param $attachment
  * @return string
  */
-	public function generateAttachTag($key, $type, $attachment) {
+	public function generateAttachTag($key, $type) {
 		$options = $this->getOptions();
 
 		return $this->View->element($options['attachElement'], array(

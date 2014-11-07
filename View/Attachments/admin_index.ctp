@@ -26,7 +26,7 @@ echo $this->Html->script('/Attachment/js/attachment');
 	<?php foreach ($attachments as $attachment): ?>
 	<tr>
 		<?php if ($browseType == 'ckeditor') : ?>
-			<td><?php echo $this->Html->link(__('Attach'), '#', array('onclick' => "Attachment.attachToCKEditor('" . Router::url($this->Attachment->getUrl($attachment['Attachment']['id'], $attachment['Attachment']['attachment'], $attachment['Attachment']['settings'])) . "'); return false;")); ?>&nbsp;</td>
+			<td><?php echo $this->Html->link(__('Attach'), '#', array('onclick' => "Attachment.attachToCKEditor('" . Router::url($this->Attachment->getUrl($attachment['Attachment']['id'], $attachment['Attachment']['attachment'], $attachment['Attachment']['settings']), true) . "'); return false;")); ?>&nbsp;</td>
 		<?php elseif ($browseType == 'browse') : ?>
 			<td><?php echo $this->Html->link(__('Attach'), '#', array('onclick' => "Attachment.attach({$attachment['Attachment']['id']}, '{$this->request->query['key']}'); return false;")); ?>&nbsp;</td>
 		<?php endif; ?>

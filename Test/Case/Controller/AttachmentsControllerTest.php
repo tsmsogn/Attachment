@@ -163,6 +163,26 @@ class AttachmentsControllerTest extends ControllerTestCase {
 	}
 
 /**
+ * testAdminReadFileWithInvalidId method
+ *
+ * @return void
+ */
+	public function testAdminReadFileWithInvalidId() {
+		$this->setExpectedException('NotFoundException');
+		$result = $this->_testAction('/admin/attachment/attachments/read_file/0');
+		debug($result);
+	}
+
+/**
+ * testAdminReadFileUno method
+ *
+ * @return void
+ */
+	public function testAdminReadFileUno() {
+		$this->markTestIncomplete();
+	}
+
+/**
  * testAdminAttachUno method
  *
  * @return void

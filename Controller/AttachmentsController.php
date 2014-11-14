@@ -14,7 +14,7 @@ class AttachmentsController extends AttachmentAppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	public $components = array('Paginator', 'Session', 'RequestHandler');
 
 /**
  * admin_index method
@@ -130,6 +130,32 @@ class AttachmentsController extends AttachmentAppController {
 			$this->Session->setFlash(__('The attachment could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index', '?' => $this->request->query));
+	}
+
+/**
+ * @param null $id
+ * @param null $settings
+ * @throws NotFoundException
+ */
+	public function admin_read_file($id = null, $settings = null) {
+		$this->Attachment->id = $id;
+		if (!$this->Attachment->exists()) {
+			throw new NotFoundException(__('Invalid attachment'));
+		}
+		$options = array('conditions' => array('Attachment.' . $this->Attachment->primaryKey => $id));
+		$attachment = $this->Attachment->find('first', $options);
+		$settings = json_decode($attachment['Attachment']['settings'], true);
+
+		$file = new File($settings['path'] . $id . DS . $attachment['Attachment']['attachment']);
+
+		if (!$file->exists() || !$file->readable()) {
+			throw new NotFoundException(__('Invalid attachment'));
+		}
+
+		$this->RequestHandler->respondAs($attachment['Attachment']['type']);
+		$this->autoRender = false;
+		echo $file->read();
+		$file->close();
 	}
 
 /**

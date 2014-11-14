@@ -30,7 +30,16 @@ echo $this->Html->script('/Attachment/js/attachment');
 		<?php elseif ($browseType == 'browse') : ?>
 			<td><?php echo $this->Html->link(__('Attach'), '#', array('onclick' => "Attachment.attach({$attachment['Attachment']['id']}, '{$this->request->query['key']}'); return false;")); ?>&nbsp;</td>
 		<?php endif; ?>
-		<td><?php echo $this->Html->image($this->Attachment->getThumbnailUrl($attachment['Attachment']['id'], $attachment['Attachment']['attachment'], 'thumb', $attachment['Attachment']['settings'])); ?>&nbsp;</td>
+		<td>
+			<?php
+			if ($this->Attachment->isImage($attachment['Attachment']['type'])) {
+				$path = Router::url(array('action' => 'read_file', $attachment['Attachment']['id']));
+				echo $this->Html->tag('img', null, array('src' => $path));
+			} else {
+				// @todo
+			}
+			?>&nbsp;
+		</td>
 		<td><?php echo h($attachment['Attachment']['id']); ?>&nbsp;</td>
 		<td><?php echo h($attachment['Attachment']['attachment']); ?>&nbsp;</td>
 		<td><?php echo h($attachment['Attachment']['dir']); ?>&nbsp;</td>

@@ -31,6 +31,20 @@ class AttachmentHelper extends AppHelper {
 /**
  * @var array
  */
+	protected $_imageMimetypes = array(
+		'image/bmp',
+		'image/gif',
+		'image/jpeg',
+		'image/pjpeg',
+		'image/png',
+		'image/vnd.microsoft.icon',
+		'image/x-icon',
+		'image/x-png',
+	);
+
+	/**
+ * @var array
+ */
 	public $helpers = array(
 		'Html',
 		'Form',
@@ -87,6 +101,16 @@ class AttachmentHelper extends AppHelper {
 			return array();
 		}
 		return explode('.', $key);
+	}
+
+/**
+ * Checks if a given mimetype is an image mimetype
+ *
+ * @param string $mimetype mimetype
+ * @return bool
+ **/
+	public function isImage($mimetype) {
+		return in_array($mimetype, $this->_imageMimetypes);
 	}
 
 /**

@@ -107,6 +107,21 @@ class AttachmentHelperTest extends CakeTestCase {
 	}
 
 /**
+ * testIsImageWithNotImage method
+ */
+	public function testIsImageWithNotImage() {
+		$this->assertFalse($this->Attachment->isImage(''));
+		$this->assertFalse($this->Attachment->isImage('foo'));
+	}
+
+/**
+ * testIsImageWithImage method
+ */
+	public function testIsImageWithImage() {
+		$this->assertTrue($this->Attachment->isImage('image/bmp'));
+	}
+
+/**
  * testBuildBrowseUrlUno method
  */
 	public function testBuildBrowseUrlUno() {

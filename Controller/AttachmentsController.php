@@ -70,7 +70,7 @@ class AttachmentsController extends AttachmentAppController {
 		$validateSettingKey = (isset($this->request->query['validateSetting'])) ? $this->request->query['validateSetting'] : '';
 
 		if ($uploadSettingKey !== '') {
-			$this->Attachment->actsAs['Upload.Upload']['attachment'] = Configure::read("Attachment.uploadSettings.$uploadSettingKey");
+			$this->Attachment->uploadSettings('attachment', Configure::read("Attachment.uploadSettings.$uploadSettingKey"));
 		}
 		if ($validateSettingKey !== '') {
 			$this->Attachment->validate['Upload.Upload']['attachment'] = Configure::read("Attachment.validaSettings.$validateSettingKey");

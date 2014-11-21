@@ -3,7 +3,7 @@ echo $this->Attachment->js();
 echo $this->Html->script('/Attachment/js/attachment');
 ?>
 <div class="attachments index">
-	<h2><?php echo __('Attachments'); ?></h2>
+	<h2><?php echo __d('attachment', 'Attachments'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<?php if ($browseType == 'ckeditor') : ?>
@@ -21,14 +21,14 @@ echo $this->Html->script('/Attachment/js/attachment');
 			<th><?php echo $this->Paginator->sort('settings'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('updated'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th class="actions"><?php echo __d('attachment', 'Actions'); ?></th>
 	</tr>
 	<?php foreach ($attachments as $attachment): ?>
 	<tr>
 		<?php if ($browseType == 'ckeditor') : ?>
-			<td><?php echo $this->Html->link(__('Attach'), '#', array('onclick' => "Attachment.attachToCKEditor('" . Router::url($this->Attachment->getUrl($attachment['Attachment']['id'], $attachment['Attachment']['attachment'], $attachment['Attachment']['settings']), true) . "'); return false;")); ?>&nbsp;</td>
+			<td><?php echo $this->Html->link(__d('attachment', 'Attach'), '#', array('onclick' => "Attachment.attachToCKEditor('" . Router::url($this->Attachment->getUrl($attachment['Attachment']['id'], $attachment['Attachment']['attachment'], $attachment['Attachment']['settings']), true) . "'); return false;")); ?>&nbsp;</td>
 		<?php elseif ($browseType == 'browse') : ?>
-			<td><?php echo $this->Html->link(__('Attach'), '#', array('onclick' => "Attachment.attach({$attachment['Attachment']['id']}, '{$this->request->query['key']}'); return false;")); ?>&nbsp;</td>
+			<td><?php echo $this->Html->link(__d('attachment', 'Attach'), '#', array('onclick' => "Attachment.attach({$attachment['Attachment']['id']}, '{$this->request->query['key']}'); return false;")); ?>&nbsp;</td>
 		<?php endif; ?>
 		<td>
 			<?php
@@ -50,9 +50,9 @@ echo $this->Html->script('/Attachment/js/attachment');
 		<td><?php echo h($attachment['Attachment']['created']); ?>&nbsp;</td>
 		<td><?php echo h($attachment['Attachment']['updated']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $attachment['Attachment']['id'], '?' => $this->request->query)); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $attachment['Attachment']['id'], '?' => $this->request->query)); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $attachment['Attachment']['id'], '?' => $this->request->query), null, __('Are you sure you want to delete # %s?', $attachment['Attachment']['id'])); ?>
+			<?php echo $this->Html->link(__d('attachment', 'View'), array('action' => 'view', $attachment['Attachment']['id'], '?' => $this->request->query)); ?>
+			<?php echo $this->Html->link(__d('attachment', 'Edit'), array('action' => 'edit', $attachment['Attachment']['id'], '?' => $this->request->query)); ?>
+			<?php echo $this->Form->postLink(__d('attachment', 'Delete'), array('action' => 'delete', $attachment['Attachment']['id'], '?' => $this->request->query), null, __d('attachment', 'Are you sure you want to delete # %s?', $attachment['Attachment']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -60,20 +60,20 @@ echo $this->Html->script('/Attachment/js/attachment');
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	'format' => __d('attachment', 'Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 	));
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev('< ' . __d('attachment', 'previous'), array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->next(__d('attachment', 'next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php echo __d('attachment', 'Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Attachment'), array('action' => 'add', '?' => $this->request->query)); ?></li>
+		<li><?php echo $this->Html->link(__d('attachment', 'New Attachment'), array('action' => 'add', '?' => $this->request->query)); ?></li>
 	</ul>
 </div>

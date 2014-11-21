@@ -9,11 +9,11 @@ list($relation, $i, $model, $name) = $this->Attachment->parseKey($key);
 
 echo $this->Form->hidden("$relation.$i.Attached.attachment_id", array('value' => $attachment['Attachment']['id']));
 
-echo $this->Html->link(__('Browse'), '#', array(
+echo $this->Html->link(__d('attachment', 'Browse'), '#', array(
 	'onclick' => "Attachment.browse('" . $browseUrl . "', '" . $options['name'] . "', '" . $options['specs'] . "', '" . $options['replace'] . "'); return false;",
 	'escape' => false
 ));
-echo $this->Html->link(__('Detach'), '#', array(
+echo $this->Html->link(__d('attachment', 'Detach'), '#', array(
 	'onclick' => "Attachment.detach('" . $attachment['Attachment']['id'] . "', '" . $key . "'); return false;"
 ));
 

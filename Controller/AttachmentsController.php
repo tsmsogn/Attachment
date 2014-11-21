@@ -54,7 +54,7 @@ class AttachmentsController extends AttachmentAppController {
  */
 	public function admin_view($id = null) {
 		if (!$this->Attachment->exists($id)) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 		$options = array('conditions' => array('Attachment.' . $this->Attachment->primaryKey => $id));
 		$this->set('attachment', $this->Attachment->find('first', $options));
@@ -79,10 +79,10 @@ class AttachmentsController extends AttachmentAppController {
 		if ($this->request->is('post')) {
 			$this->Attachment->create();
 			if ($this->Attachment->save($this->request->data)) {
-				$this->Session->setFlash(__('The attachment has been saved.'));
+				$this->Session->setFlash(__d('attachment', 'The attachment has been saved.'));
 				return $this->redirect(array('action' => 'index', '?' => $this->request->query));
 			} else {
-				$this->Session->setFlash(__('The attachment could not be saved. Please, try again.'));
+				$this->Session->setFlash(__d('attachment', 'The attachment could not be saved. Please, try again.'));
 			}
 		}
 	}
@@ -96,14 +96,14 @@ class AttachmentsController extends AttachmentAppController {
  */
 	public function admin_edit($id = null) {
 		if (!$this->Attachment->exists($id)) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Attachment->save($this->request->data)) {
-				$this->Session->setFlash(__('The attachment has been saved.'));
+				$this->Session->setFlash(__d('attachment', 'The attachment has been saved.'));
 				return $this->redirect(array('action' => 'index', '?' => $this->request->query));
 			} else {
-				$this->Session->setFlash(__('The attachment could not be saved. Please, try again.'));
+				$this->Session->setFlash(__d('attachment', 'The attachment could not be saved. Please, try again.'));
 			}
 		} else {
 			$options = array('conditions' => array('Attachment.' . $this->Attachment->primaryKey => $id));
@@ -121,13 +121,13 @@ class AttachmentsController extends AttachmentAppController {
 	public function admin_delete($id = null) {
 		$this->Attachment->id = $id;
 		if (!$this->Attachment->exists()) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Attachment->delete()) {
-			$this->Session->setFlash(__('The attachment has been deleted.'));
+			$this->Session->setFlash(__d('attachment', 'The attachment has been deleted.'));
 		} else {
-			$this->Session->setFlash(__('The attachment could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__d('attachment', 'The attachment could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index', '?' => $this->request->query));
 	}
@@ -140,7 +140,7 @@ class AttachmentsController extends AttachmentAppController {
 	public function admin_read_file($id = null, $settings = null) {
 		$this->Attachment->id = $id;
 		if (!$this->Attachment->exists()) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 		$options = array('conditions' => array('Attachment.' . $this->Attachment->primaryKey => $id));
 		$attachment = $this->Attachment->find('first', $options);
@@ -149,7 +149,7 @@ class AttachmentsController extends AttachmentAppController {
 		$file = new File($settings['path'] . $id . DS . $attachment['Attachment']['attachment']);
 
 		if (!$file->exists() || !$file->readable()) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 
 		$this->RequestHandler->respondAs($attachment['Attachment']['type']);
@@ -165,11 +165,11 @@ class AttachmentsController extends AttachmentAppController {
 	public function admin_attach($id = null) {
 		$this->Attachment->id = $id;
 		if (!$this->Attachment->exists()) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 
 		if (func_num_args() < 2) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 
 		$key = $type = '';
@@ -202,11 +202,11 @@ class AttachmentsController extends AttachmentAppController {
 	public function admin_detach($id = null) {
 		$this->Attachment->id = $id;
 		if (!$this->Attachment->exists()) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 
 		if (func_num_args() < 2) {
-			throw new NotFoundException(__('Invalid attachment'));
+			throw new NotFoundException(__d('attachment', 'Invalid attachment'));
 		}
 
 		$key = $type = '';

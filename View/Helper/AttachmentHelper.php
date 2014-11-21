@@ -42,7 +42,7 @@ class AttachmentHelper extends AppHelper {
 		'image/x-png',
 	);
 
-	/**
+/**
  * @var array
  */
 	public $helpers = array(

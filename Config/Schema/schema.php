@@ -15,7 +15,7 @@ class AttachmentSchema extends CakeSchema {
 		'attachment_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'updated' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'INDEX_MODEL_FOREIGN_KEY' => array('column' => array('model', 'foreign_key'), 'unique' => 0)

@@ -51,7 +51,7 @@ CREATE TABLE `attacheds` (
   `attachment_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
+  `updated` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `INDEX_MODEL_FOREIGN_KEY` (`model`,`foreign_key`)
 )

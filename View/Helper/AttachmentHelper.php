@@ -131,7 +131,7 @@ class AttachmentHelper extends AppHelper {
 
 		$data = $this->request->data;
 
-		$isPost = $this->request->is('post');
+		$isPost = $this->request->is(array('post', 'put'));
 
 		if ($isPost && isset($data[$relation][$name]['Attached']['attachment_id'])) { // For Post
 			$output .= $this->generateDetachTag($key, $type, array('Attachment' => $data[$relation][$name]['Attachment']));
